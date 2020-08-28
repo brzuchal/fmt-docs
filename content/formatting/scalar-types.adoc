@@ -1,0 +1,39 @@
+---
+title: Scalar types
+description: Scalar type values formatting options
+weight: 5
+---
+== Strings
+
+.String format specifiers
+[cols="^1s,5"]
+|===
+| Format | Description
+
+| s | The argument is treated and presented as a string _(default for strings)_
+|===
+
+== Numbers
+
+.Number format specifiers
+[cols="^1s,5"]
+|===
+| Format | Description
+
+| b | The argument is treated as an integer and presented as a binary number
+| c | The argument is treated as an integer and presented as the character with that ASCII
+| d | The argument is treated as an integer and presented as a (signed) decimal number _(default for integers)_
+| e | The argument is treated as scientific notation (e.g. 1.2e+2). The precision specifier stands for the number of digits after the decimal point
+| E | Like the e specifier but uses uppercase letter (e.g. 1.2E+2)
+| f | The argument is treated as a float and presented as a floating-point number (locale aware)
+| F | The argument is treated as a float and presented as a floating-point number (non-locale aware)
+| g |
+General format.
+
+Let P equal the precision if nonzero, 6 if the precision is omitted, or 1 if the precision is zero. Then, if a conversion with style E would have an exponent of X:
+
+If P > X ≥ −4, the conversion is with style f and precision P − (X + 1). Otherwise, the conversion is with style e and precision P − 1.
+
+| G | Like the g specifier but uses E and f
+| o | The argument is treated as an integer and presented as an octal number
+|===

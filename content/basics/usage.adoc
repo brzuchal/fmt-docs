@@ -1,0 +1,102 @@
+---
+title: Usage
+weight: 10
+---
+:datetime: https://www.php.net/datetime
+:url-php-datetime-format: https://www.php.net/datetime-format
+
+There are two main functions providing fundamental functionality.
+The `string_format()` function is designed to return formatted string
+and the `print_format()` function prints the value immediately returning `void`.
+
+Both functions take at least one argument which is the format
+specification and variadic arguments which can be positional arguments along
+with named arguments.
+
+== Formatting string and returning
+
+Above shows examples of formatting a string specification with use
+of positional arguments.
+
+=== Reference to the first positional argument.
+[source,php]
+----
+use fmt\string_format;
+
+$message = string_format('First, thou shalt count to {0}', 3);
+----
+NOTE: Positional arguments count from 0 even if they're not passed as an argument
+at position 0 due to fact that first argument is always a format specification.
+
+=== Implicit reference to positional arguments
+
+[source,php]
+----
+use fmt\string_format;
+
+$message = string_format('Bring me a {}', 'book');
+----
+NOTE: Without an argument position or it's name the first `{}` is equivalent to `{0}`.
+
+
+[source,php]
+----
+use fmt\string_format;
+
+$message = string_format('From {} to {}', 5, 10);
+----
+NOTE: Without specifying further positions it's the same as `"From {0} to {1}"`.
+
+
+=== References to named argument
+
+[source,php]
+----
+use fmt\string_format;
+
+$message = string_format('My quest is {name}', name: 'John');
+----
+
+[source,php]
+----
+use fmt\string_format;
+
+$message = string_format(
+    '{when:Y-m-d} is {temp:0.1f}°C and is {cond}',
+    temp: 32, // <1>
+    cond: 'sunny', // <2>
+    when: new DateTimeImmutable('now'), // <3>
+);
+var_dump($message);
+// string(23) "2020-08-20 is 32.0°C and is sunny."
+----
+<1> An integer is a scalar value and can be formatted as a decimal or integer.
+<2> A string is a scalar and can be only formatter as a string.
+<3> A {datetime}[DateTimeInterface] family classes can be formatted using a {datetime-format}[datetime format].
+
+//Some simple format string examples:
+//----
+//"Weight in tons {0.weight}"      # 'weight' attribute of first positional arg
+//"Units destroyed: {players[0]}"  # First element of keyword argument 'players'.
+//----
+
+
+== Print formatted string
+
+The `print_format()` function takes at least one argument which is the format
+specification and variadic arguments which can be positional arguments along
+with named arguments and prints *formatted* string
+just like the `string_format()` does.
+
+[source,php]
+----
+use fmt\print_format;
+
+print_format('Hello {}!', 'John');
+----
+
+Output:
+[source,shell]
+----
+Hello John!
+----

@@ -1,0 +1,119 @@
+---
+title: Functions
+weight: 11
+---
+There are two main functions providing fundamental functionality.
+The `string_format()` function is designed to return formatted string
+and the `print_format()` function prints the value immediately returning `void`.
+
+== Introduction to string_format
+
+The `string_format()` function takes at least one argument which is the format
+specification and variadic arguments which can be positional arguments along
+with named arguments and *returns* formatted string.
+
+=== Synopsis
+
+[source,php]
+----
+function string_format(string|Stringable $formatSpec, ...$values): string
+----
+`string_format()` function formats the string given by `$formatSpec` and value
+arguments passed in form of variadic arguments either positional or named ones.
+
+=== Parameters
+
+*string|Stringable $formatSpec*:: The format specification used to format a string.
+*mixed ...$values*:: Can be passed in form of a single value to format or more
+(using named arguments notation or positional ones) which are formatted and replaced
+in result string value.
+
+=== Return value
+
+Returns the formatted string value.
+
+=== Example
+
+[source,php]
+----
+use fmt\string_format;
+
+$message = string_format(
+    '{when:Y-m-d} is {temp:0.1f}°C and is {cond}',
+    temp: 32, // <1>
+    cond: 'sunny', // <2>
+    when: new DateTimeImmutable('now'), // <3>
+);
+var_dump($message);
+----
+<1> Foo
+<2> Bar
+<3> Baz fooo
+
+==== Output
+[source,shell]
+----
+string(34) "2020-08-20 is 32.0°C and is sunny."
+----
+
+CAUTION: All positional arguments require passing before all named arguments
+         as this is how named arguments works in *PHP*.
+
+Above usage of `string_format()` is way more clean and easier to read equivalent of:
+
+[source,php]
+----
+$message = \sprintf(
+    '%3$s is %1$0.1f°C and is %2$s',
+    32,
+    'sunny',
+    (new DateTimeImmutable('now'))->format('Y-m-d')
+);
+var_dump($message);
+----
+
+// TODO: Needs ref to PHP site
+NOTE: If we care about full equivalent with the same argument order all arguments
+      need to be referenced by a positional index only with use of `3$` notation.
+
+== Introduction to print_format
+
+The `print_format()` function takes at least one argument which is the format
+specification and variadic arguments which can be positional arguments along
+with named arguments and prints *formatted* string.
+
+=== Synopsis
+
+[source,php]
+----
+function print_format(string|Stringable $formatSpec, ...$values): void
+----
+`print_format()` function formats the string given by `$formatSpec` and value
+arguments passed in form of variadic arguments either positional or named ones
+just like the `string_format()` does.
+
+=== Parameters
+
+*string|Stringable $formatSpec*:: The format specification used to format a string.
+*mixed ...$values*:: Can be passed in form of a single value to format or more
+(using named arguments notation or positional ones) which are formatted and replaced
+in result string value.
+
+=== Return value
+
+No value, the function return is `void`.
+
+=== Example
+
+[source,php]
+----
+use fmt\print_format;
+
+print_format('Hello {}!', 'John');
+----
+
+==== Output
+[source,shell]
+----
+Hello John!
+----

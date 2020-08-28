@@ -1,0 +1,12 @@
+---
+title: Install
+weight: 6
+---
+== Install
+
+Using composer:
+
+[source,shell script]
+----
+$ composer require brzuchal/fmt
+----

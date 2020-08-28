@@ -1,0 +1,33 @@
+= fmt-docs - Documentation for fmt - A modern string formatting library
+
+// Head
+:project: brzuchal/fmt-docs
+:url-profile: https://github.com/brzuchal
+:url-project: https://github.com/brzuchal/fmt-docs
+
+image:https://img.shields.io/github/license/{project}[License]
+image:https://img.shields.io/github/last-commit/{project}[Last commit]
+
+This is a repository for *fmt* library documentation written in AsciiDoc format.
+
+== Documentation
+
+=== Running local server
+Using make
+
+[source,shell script]
+----
+make serve
+----
+
+== Contributing
+
+Thanks for contributing to *fmt-docs*!
+Just follow these single guidelines:
+
+- You must use https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows[feature / topic branches]
+  to ease the merge of contributions.
+- After adding new documentation in `content/` folder and regenerate
+  the documentation by running `make build` .
+- After adding new non release relevant artifacts you must ensure they
+  are export ignored in the `.gitattributes` file.

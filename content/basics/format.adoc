@@ -1,0 +1,86 @@
+---
+title: Format specification
+weight: 15
+---
+//== Format specifiation
+
+:py: https://docs.python.org/3.4/library/string.html#format-string-syntax
+:cs: https://docs.microsoft.com/en-gb/dotnet/api/system.string.format?view=netcore-3.1
+
+The format specification API is similar in spirit to the C printf family
+of function but is safer,
+simpler and several times faster than common standard library implementations.
+
+The format string syntax is similar to the one used by `str.format` in {py}[Python]
+and `String.Format` known from {cs}[C#].
+
+Format strings contain "replacement fields" surrounded by curly braces `{}`.
+Anything that is not contained in braces is considered literal text,
+which is copied unchanged to the output.
+
+If you need to include a brace character in the literal text,
+it can be escaped by doubling: `{{` and `}}`.
+
+== Grammar
+
+The grammar for a replacement field is as follows:
+
+[source,ebnf]
+----
+replacement_field ::=  "{" , field_name [ ":" , format_spec ] "}"
+field_name        ::=  arg_name { arg_dimension }
+arg_dimension     ::=  "." , attribute_name | "[" , element_index , "]"
+arg_name          ::=  identifier | integer
+attribute_name    ::=  identifier
+element_index     ::=  integer | index_string
+index_string      ::= #'[A-Za-z][A-Za-z0-9_+]*'
+format_spec       ::= #'[A-Za-z][A-Za-z0-9_+]*'
+identifier        ::= #'[A-Za-z][A-Za-z0-9_+]*'
+integer           ::= #'[0-9]+'
+----
+
+In less formal terms, the replacement field can start with a field_name
+that specifies the object whose value is to be formatted and inserted into
+the output instead of the replacement field.
+
+The field_name is optionally followed by a conversion field, which is
+preceded by an exclamation point '!', and a format_spec, which is
+preceded by a colon ':'.
+
+These specify a non-default format for the replacement value.
+
+//See also the Format Specification Mini-Language section.
+
+The field_name itself begins with an arg_name that is either a number or a keyword. If it’s a number, it refers to a positional argument, and if it’s a keyword, it refers to a named keyword argument. If the numerical arg_names in a format string are 0, 1, 2, ... in sequence, they can all be omitted (not just some) and the numbers 0, 1, 2, ... will be automatically inserted in that order. Because arg_name is not quote-delimited, it is not possible to specify arbitrary dictionary keys (e.g., the strings '10' or ':-]') within a format string. The arg_name can be followed by any number of index or attribute expressions. An expression of the form '.name' selects the named attribute using getattr(), while an expression of the form '[index]' does an index lookup using __getitem__().
+
+The positional argument specifiers can be omitted, so `{} {}` is equivalent
+to `{0} {1}`.
+
+== Examples
+
+The conversion field causes a type coercion before formatting.
+Normally, the job of formatting a value is done by a specific format provider
+instance implementing formatting of the value itself.
+However, in some cases it is desirable to force a type to be formatted as
+a string, overriding its own definition of formatting.
+By converting the value to a string before calling `string_format()` or
+`print_format()`, the normal formatting logic is bypassed.
+
+The format_spec field contains a specification of how the value should be
+presented, including such details as field width, alignment, padding,
+decimal precision and so on.
+
+WARNING: Each value type can define its own “formatting mini-language” or
+interpretation of the format_spec.
+
+Most built-in types support a common formatting mini-language,
+which is described in the next section.
+
+A format_spec field can also include nested replacement fields within it.
+These nested replacement fields can contain only a field name;
+conversion flags and format specifications are not allowed.
+The replacement fields within the format_spec are substituted before
+the format_spec string is interpreted.
+This allows the formatting of a value to be dynamically specified.
+
+See the Format examples section for some examples.

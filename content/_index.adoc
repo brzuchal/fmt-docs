@@ -1,0 +1,50 @@
+---
+title: fmt - A moderm string formatting library for PHP
+---
+== fmt - A modern string formatting library for PHP
+
+This is a documentation of *fmt* - a modern string formatting library for *PHP*
+similar to other libraries implemented for languages like *Python* or *C#*.
+
+=== Install
+
+[source,shell script]
+----
+composer require brzuchal/fmt
+----
+
+=== Functions
+
+There are two main functions delivered with this library.
+For more detailed descriptions go to xref:basics/functions.adoc[the functions reference]
+and to xref:basics/format.adoc[the format specification syntax].
+
+[source,php]
+----
+namespace fmt;
+
+function string_format(string|Stringable $formatSpec, ...$values): string;
+function print_format(string|Stringable $formatSpec, ...$values): void;
+----
+
+=== Usage
+
+Go to xref:basics/usage.adoc[detailed usage with examples] section if you need
+more examples.
+
+[source,php]
+----
+use fmt\string_format;
+use fmt\print_format;
+
+$message = string_format('Hello {who}!', who: 'John Doe');
+var_dump($message);
+
+print_format('From {} to {}', 5, 10);
+----
+
+[source,shell script]
+----
+string(15) "Hello John Doe!"
+From 5 to 10
+----

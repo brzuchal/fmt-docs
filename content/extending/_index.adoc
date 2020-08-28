@@ -1,0 +1,7 @@
+---
+title: Extending
+#chapter: true
+pre: "<b>3. </b>"
+weight: 30
+---
+Adding custom type formatters.

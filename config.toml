@@ -1,0 +1,30 @@
+title = "fmt"
+subtitle = "A modern string formatting library for PHP"
+languageCode = "en-us"
+timezone = "Europe/Warsaw"
+theme = "hugo-theme-learn"
+#enableGitInfo = true
+enableRobotsTXT = true
+uglyurls = true
+
+[outputs]
+home = [ "HTML", "JSON"]
+
+[params]
+themeVariant = "red"
+custom_css = ["//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/styles/srcery.min.css"]
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-github'></i> Github repo"
+identifier = "ds"
+url = "https://github.com/brzuchal/fmt-docs"
+weight = 10
+
+[markup.asciidocext]
+extensions = ["asciidoctor-html5s", "asciidoctor-diagram"]
+workingFolderCurrent = true
