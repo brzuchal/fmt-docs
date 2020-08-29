@@ -27,7 +27,6 @@ Just follow these single guidelines:
 
 - You must use https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows[feature / topic branches]
   to ease the merge of contributions.
-- After adding new documentation in `content/` folder and regenerate
-  the documentation by running `make build` .
+- After adding new documentation in `content/` folder regenerate the documentation by running `make build`.
 - After adding new non release relevant artifacts you must ensure they
   are export ignored in the `.gitattributes` file.
