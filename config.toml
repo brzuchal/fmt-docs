@@ -3,9 +3,10 @@ subtitle = "A modern string formatting library for PHP"
 languageCode = "en-us"
 timezone = "Europe/Warsaw"
 theme = "hugo-theme-learn"
-#enableGitInfo = true
+enableGitInfo = true
 enableRobotsTXT = true
 uglyurls = true
+googleAnalytics = "UA-3332455-26"
 
 [outputs]
 home = [ "HTML", "JSON"]
